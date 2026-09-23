@@ -1,12 +1,12 @@
 .container {
-    background-color: #F3F4F6;
+    background-color: #f3f4f6;
     min-height: 100vh;
     padding: 20px;
     box-sizing: border-box;
     font-family: 'Courier New', Courier, monospace;
 }
 
-.title {
+.titulo {
     text-align: center;
     font-size: 30px;
     color: #374151;
@@ -14,34 +14,39 @@
     margin: 10px 0;
 }
 
-.titleBold {
+.titulo-bold {
     font-weight: 900;
     color: #6d28d9;
 }
 
-.btnNuevaCita {
+.btn-nueva-cita {
     display: block;
     background-color: #6d28d9;
     padding: 15px;
-    margin-top: 30px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 30px auto;
     border-radius: 10px;
     border: none;
     cursor: pointer;
-    max-width: 500px;
+    width: 100%;
+    max-width: 400px;
+    transition: background-color 0.2s ease;
 }
 
-.btnTextoNuevaCita {
+.btn-nueva-cita:hover {
+    background-color: #5b21b6;
+
+}
+
+.btn-texto-nueva-cita {
     text-align: center;
-    color: #FFF;
+    color: #fff;
     font-size: 18px;
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
-.noPacinetes {
+.noPacientes {
     margin-top: 40px;
     text-align: center;
     font-size: 24px;
@@ -54,10 +59,10 @@
     max-width: 600px;
     display: flex;
     flex-direction: column;
-    gap: 15px
+    gap: 15px;
 }
 
-.modalOverlay {
+.modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -71,8 +76,8 @@
     padding: 20px;
 }
 
-.modalContent {
-    background-color: #FFF;
+.modal-content {
+    background-color: #fff;
     border-radius: 12px;
     padding: 25px;
     width: 100%;
