@@ -1,17 +1,36 @@
 import { useState, useEffect } from "react";
 import '../css/formulario.css';
+import '../css/paciente.css';
 
-const Formulario = ({modalVisual, setModalVisible}) => {
+const Formulario = ({modalVisual, setModalVisible, pacientes, setPacientes}) => {
     const [paciente,setPaciente]=useState('')
     const [nombrePropietario,setNombrePropietario]=useState('')
     const [correo,setCorreo]=useState('')
     const [telefono,setTelefono]=useState('')
     const [fechaAlta,setFechaAlta]=useState('')
     const [sintomas,setSintomas]=useState('')
+    
 
     const handelCita= (e)=>{
         e.preventDefault();
 
+        if([paciente.trim(), nombrePropietario.trim(), correo.trim(), telefono.trim(), fechaAlta, sintomas.trim(),].includes('')){
+            window.alert('Error: Todos los campos son obligatrorios');
+            return;
+        }
+
+        const nuevoPaciente = {
+            paciente,
+            nombrePropietario,
+            telefono,
+            correo,
+            fechaAlta,
+            sintomas
+        };
+        nuevoPaciente.id = Date.now();
+        console.log(nuevoPaciente);
+
+        setPacientes([...pacientes, nuevoPaciente]);
     }
 
     return (
