@@ -1,24 +1,46 @@
 import { useState, useEffect } from "react";
-import '../css/formulario.css';
-import '../css/paciente.css';
+import '../css/formulario.css'
 
-const Formulario = ({modalVisual, setModalVisible, pacientes, setPacientes}) => {
-    const [paciente,setPaciente]=useState('')
-    const [nombrePropietario,setNombrePropietario]=useState('')
-    const [correo,setCorreo]=useState('')
-    const [telefono,setTelefono]=useState('')
-    const [fechaAlta,setFechaAlta]=useState('')
-    const [sintomas,setSintomas]=useState('')
-    
+const Formulario = ({
+    modalVisible,
+    setModalVisible,
+    pacientes,
+    setPacientes
+}) => {
+    const [paciente, setPaciente] = useState('');
+    const [nombrePropietario, setNombrePropietario] = useState('');
+    const [correo, setCorreo] = useState('');
+    const [telefono, setTelefono] = useState('');
+    const [fechaAlta, setFechaAlta] = useState('');
+    const [sintomas, setSintomas] = useState('');
 
-    const handelCita= (e)=>{
+    /**
+     * Create 5 new states
+     *  -nombrePropietario
+     *  -correo
+     *  -telefono
+     *  -fechaAlta
+     *  -sintomas (descripcion del problema)
+     * Create 5 new inputs with state
+     * Type inputs
+     *  -text
+     *  -tel
+     *  -email
+     *  -date
+     * Inputs
+     *  -input
+     *  -textarea (contenido con mucho texto)
+     */
+
+    const handleCita= (e) => {
         e.preventDefault();
-
-        if([paciente.trim(), nombrePropietario.trim(), correo.trim(), telefono.trim(), fechaAlta, sintomas.trim(),].includes('')){
-            window.alert('Error: Todos los campos son obligatrorios');
+        //Validation
+        if ([paciente.trim(), nombrePropietario.trim(), telefono.trim(), correo.trim(), fechaAlta.trim(), sintomas.trim()].includes('')){
+            window.alert('Error: Todos los campos son obligatorios')
             return;
         }
 
+        // Create an object with all values in the form
         const nuevoPaciente = {
             paciente,
             nombrePropietario,
@@ -27,27 +49,34 @@ const Formulario = ({modalVisual, setModalVisible, pacientes, setPacientes}) => 
             fechaAlta,
             sintomas
         };
+
         nuevoPaciente.id = Date.now();
         console.log(nuevoPaciente);
 
-        setPacientes([...pacientes, nuevoPaciente]);
+        // Save all new records
+        // state = add my object intp the array
+        setPacientes([...pacientes,nuevoPaciente])
+        setModalVisible(false);
+
     }
 
     return (
-        <dir className= "formulario-contenido">
-            <h2 className="formulario-titulo">Nueva
-                <span className="formulario-titulo-bold"> Cita</span>
+        <div className="formulario-contenido">
+            <h2 className="formulario-titulo"> Nueva 
+                <span className="formulario-titulo-bold"> Cita </span>
             </h2>
-            <button 
-                className="formulario-btn-cancelar"
-                onClick={()=> setModalVisible(false)}
+            <button
+            className="formulario-btn-cancelar"
+            onClick={() => setModalVisible(false)}
             >
-                <span className="formulario-btn-texto-cancelar">Cancelar</span></button>
-            <from onSubmit={(e) => handelCita(e)}>
-                <div className="formulario-campo">
+                <span className="formulario-btn-texto-cancelar">Cancelar</span>
+            </button>
+
+            <form onSubmit={(e) => handleCita(e)}>
+                <div className="formulario-campo">  
                     <label
-                    htmlFor="paciente"
-                    className="formulario-label"
+                        htmlFor="paciente"
+                        className="formulario-label"
                     >Nombre Paciente</label>
                     <input
                         id="paciente"
@@ -57,88 +86,85 @@ const Formulario = ({modalVisual, setModalVisible, pacientes, setPacientes}) => 
                         value={paciente}
                         onChange={(e) => setPaciente(e.target.value)}
                     />
-                </div>
-            
+                <div/>
                 <div className="formulario-campo">
                     <label
-                    htmlFor="nombrePropietario"
-                    className="formulario-label"
+                        htmlFor="nombrePropietario"
+                        className="formulario-label"
                     >Nombre Propietario</label>
                     <input
                         id="nombrePropietario"
                         type="text"
                         className="formulario-input"
-                        placeholder="Nombre Propietario"
+                        placeholder="Yamilet Martinez"
                         value={nombrePropietario}
                         onChange={(e) => setNombrePropietario(e.target.value)}
                     />
                 </div>
-            
                 <div className="formulario-campo">
                     <label
-                    htmlFor="correo"
-                    className="formulario-label"
-                    >Email</label>
+                        htmlFor="correo"
+                        className="formulario-label"
+                    >Correo</label>
                     <input
                         id="correo"
-                        type="text"
+                        type="email"
                         className="formulario-input"
-                        placeholder="Email"
+                        placeholder="usuario@gmail.com"
                         value={correo}
                         onChange={(e) => setCorreo(e.target.value)}
                     />
                 </div>
-            
                 <div className="formulario-campo">
                     <label
-                    htmlFor="telefono"
-                    className="formulario-label"
-                    >Telefono</label>
+                        htmlFor="telefono"
+                        className="formulario-label"
+                    >Telefono </label>
                     <input
                         id="telefono"
-                        type="text"
+                        type="tel"
                         className="formulario-input"
-                        placeholder="Telefono"
+                        placeholder="4491234567"
                         value={telefono}
                         onChange={(e) => setTelefono(e.target.value)}
                     />
                 </div>
-            
                 <div className="formulario-campo">
                     <label
-                    htmlFor="fechaAlta"
-                    className="formulario-label"
-                    >Fecha de Alta</label>
+                        htmlFor="fechaAlta"
+                        className="formulario-label"
+                    >Fecha Alta</label>
                     <input
                         id="fechaAlta"
-                        type="text"
+                        type="date"
                         className="formulario-input"
-                        placeholder="dd/mm/aaaa"
+                        placeholder="29/09/2026"
                         value={fechaAlta}
                         onChange={(e) => setFechaAlta(e.target.value)}
                     />
                 </div>
-            
                 <div className="formulario-campo">
                     <label
-                    htmlFor="sintomas"
-                    className="formulario-label"
-                    >Sintomas</label>
+                        htmlFor="sintomas"
+                        className="formulario-label"
+                    >Sintomas </label>
                     <textarea
                         id="sintomas"
                         className="formulario-input"
-                        placeholder="Decripcion del problema"
+                        placeholder="Describir sintomas"
                         value={sintomas}
                         onChange={(e) => setSintomas(e.target.value)}
                         rows={4}
                     />
                 </div>
+                </div>
+
                 <button
-                    type="submit"
-                    className="formulario-btn-submit"
-                >Agregar Paciente</button>
-            </from>
-        </dir>
+                type="submit"
+                className="formulario-btn-submit"
+                > Agregar Paciente</button>
+            </form>
+        </div>
     );
 };
 
