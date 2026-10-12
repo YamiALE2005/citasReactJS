@@ -1,10 +1,11 @@
 
-import '../css/paciente.css'
+import '../css/Paciente.css'
 
 const Paciente = ({
     setModalVisible,
     pacientes,
-    paciente
+    paciente,
+    eliminarPaciente
 }) => {
 
     const handleEditar = () => {
@@ -12,7 +13,9 @@ const Paciente = ({
         setModalVisible(true);
         // En console.log mostrar el array de pacientes
         console.log(pacientes)
-
+    }
+    const handleEliminar = () => {
+        eliminarPaciente(paciente.id);
     }
 
     return (
@@ -29,6 +32,7 @@ const Paciente = ({
                 >Editar</button>
                 <button 
                     className="paciente-btn paciente-btn-eliminar"
+                    onClick={() => handleEliminar()}
                 >Eliminar</button>
             </div>
         </article>
