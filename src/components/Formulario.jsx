@@ -5,7 +5,9 @@ const Formulario = ({
     modalVisible,
     setModalVisible,
     pacientes,
-    setPacientes
+    setPacientes,
+    pacienteEditado,
+    setPacienteEditado
 }) => {
     const [paciente, setPaciente] = useState('');
     const [nombrePropietario, setNombrePropietario] = useState('');
@@ -13,6 +15,36 @@ const Formulario = ({
     const [telefono, setTelefono] = useState('');
     const [fechaAlta, setFechaAlta] = useState('');
     const [sintomas, setSintomas] = useState('');
+    const [idPaciente, setIdPaciente] = useState('');
+
+    useEffect(()=>{
+        if(Object.keys(pacienteEditado).length > 0){
+            setPaciente(pacienteEditado.paciente);
+            setNombrePropietario(pacienteEditado.nombrePropietario);
+            setTelefono(pacienteEditado.telefono);
+            setCorreo(pacienteEditado.correo);
+            setFechaAlta(pacienteEditado.fechaAlta);
+            setSintomas(pacienteEditado.sintomas);
+            setIdPaciente(pacienteEditado.id);
+
+        }
+    }, []);
+
+    const resetFormulario = () =>{
+        setPaciente('');
+            setNombrePropietario('');
+            setTelefono('');
+            setCorreo('');
+            setFechaAlta('');
+            setSintomas('');
+
+    }
+
+    const handleCancelar = () => {
+        resetFormulario();
+        setModalVisible(false);
+        setPacienteEditado({});
+    }
 
     /**
      * Create 5 new states
@@ -62,12 +94,12 @@ const Formulario = ({
 
     return (
         <div className="formulario-contenido">
-            <h2 className="formulario-titulo"> Nueva 
+            <h2 className="formulario-titulo"> {idPaciente ? 'Editar' : 'Nuevo'}
                 <span className="formulario-titulo-bold"> Cita </span>
             </h2>
             <button
             className="formulario-btn-cancelar"
-            onClick={() => setModalVisible(false)}
+            onClick={() => handleCancelar()}
             >
                 <span className="formulario-btn-texto-cancelar">Cancelar</span>
             </button>
@@ -162,7 +194,7 @@ const Formulario = ({
                 <button
                 type="submit"
                 className="formulario-btn-submit"
-                > Agregar Paciente</button>
+                > {idPaciente ? 'Editar' : 'Nuevo'} Paciente</button>
             </form>
         </div>
     );
