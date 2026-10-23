@@ -39,11 +39,14 @@ const Formulario = ({
             setSintomas('');
 
     }
-
-    const handleCancelar = () => {
+    const cleanFomr = () => {
         resetFormulario();
         setModalVisible(false);
         setPacienteEditado({});
+    }
+
+    const handleCancelar = () => {
+        cleanFomr();
     }
 
     /**
@@ -81,14 +84,26 @@ const Formulario = ({
             fechaAlta,
             sintomas
         };
+        
+        
+        if(pacienteEditado.id){
+            const nuevosPacientes = pacientes.map((paciente) => {
+                if(paciente.id === pacienteEditado.id){
+                    nuevoPaciente.id = paciente.id;
+                    return nuevoPaciente;
+                }else{
+                    return paciente;
+                }
+            });
+            setPacientes(nuevosPacientes);
 
-        nuevoPaciente.id = Date.now();
-        console.log(nuevoPaciente);
-
-        // Save all new records
-        // state = add my object intp the array
-        setPacientes([...pacientes,nuevoPaciente])
-        setModalVisible(false);
+        }else {
+            nuevoPaciente.id = Date.now();
+            // Save all new records
+            // state = add my object intp the array
+            setPacientes([...pacientes,nuevoPaciente])
+        }
+        cleanFomr(false);
 
     }
 
